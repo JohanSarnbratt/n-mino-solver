@@ -1,3 +1,6 @@
+
+use rust2::puzzle;
+
 fn main() {
-    println!("Hello, world!");
+    puzzle::piece::pieces()
 }
