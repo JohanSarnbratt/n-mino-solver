@@ -1,9 +1,9 @@
 use std;
 use std::fmt::Formatter;
 
-struct Piece {
-    coords: Vec<(i32, i32)>,
-    name: char
+pub struct Piece {
+    pub coords: Vec<(i32, i32)>,
+    pub name: char
 }
 
 impl std::fmt::Display for Piece {
@@ -23,9 +23,23 @@ impl std::fmt::Display for Piece {
     }
 }
 
-pub fn pieces() {
-    let p1 = Piece { coords: vec![(0, 0), (1, 0), (0, 1), (1, 1), (2, 0)], name: 'A' };
-    let p2 = Piece { coords: vec![(0, 0), (1, 0), (0, 1), (2, 0)], name: 'B' };
+pub fn pieces() -> Vec<Piece> {
+    let p1 = piece_t();
+    let p2 = piece_z();
+    return vec![p1, p2]
+}
+pub fn test_pieces() -> Vec<Piece> {
+    let p1 = piece_t();
+    let p2 = piece_z();
     std::println!("p1 is \n{}", p1);
     std::println!("p2 is \n{}", p2);
+    return vec![p1, p2]
+}
+
+fn piece_t() -> Piece {
+    return Piece { coords: vec![(0, 0), (1, 0), (2, 0), (1, 1), (1, 2)], name: 'T' };
+}
+
+fn piece_z() -> Piece {
+    return Piece { coords: vec![(0, 0), (0, 1), (1, 1), (1, 2)], name: 'Z' };
 }
