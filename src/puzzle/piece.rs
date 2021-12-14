@@ -2,7 +2,8 @@ use std;
 use std::fmt::Formatter;
 
 struct Piece {
-    coords: Vec<(i32, i32)>
+    coords: Vec<(i32, i32)>,
+    name: char
 }
 
 impl std::fmt::Display for Piece {
@@ -13,18 +14,18 @@ impl std::fmt::Display for Piece {
             let x = ind%(maxs.0+1);
             let y = ind/(maxs.0+1);
             [if self.coords.contains(&(x, y)) {
-                "#"
+                self.name.to_string()
             } else {
-                "'"
-            }, if x == maxs.0 {"\n"} else { "" }].join("")
+                "'".to_string()
+            }, if x == maxs.0 {"\n".to_string()} else { "".to_string() }].join("")
         }).collect();
         write!(f, "{}",str)
     }
 }
 
 pub fn pieces() {
-    let p1 = Piece { coords: vec![(0, 0), (1, 0), (0, 1), (1, 1), (2, 0)] };
-    let p2 = Piece { coords: vec![(0, 0), (1, 0), (0, 1), (2, 0)] };
+    let p1 = Piece { coords: vec![(0, 0), (1, 0), (0, 1), (1, 1), (2, 0)], name: 'A' };
+    let p2 = Piece { coords: vec![(0, 0), (1, 0), (0, 1), (2, 0)], name: 'B' };
     std::println!("p1 is \n{}", p1);
     std::println!("p2 is \n{}", p2);
 }
