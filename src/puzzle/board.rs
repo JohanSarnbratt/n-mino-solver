@@ -8,11 +8,11 @@ enum BoardElement {
     Piece(char)
 }
 
-struct Board {
-    width: i32,
-    height: i32,
+pub struct Board {
+    pub width: i32,
+    pub height: i32,
     elements: Vec<BoardElement>,
-    name: String
+    pub name: String
 }
 
 impl Board {
@@ -22,7 +22,7 @@ impl Board {
     fn full(&self) -> bool {
         !self.elements.contains(&BoardElement::Empty)
     }
-    fn print(&self) {
+    pub fn print(&self) {
         for y in 0..self.height {
             for x in 0..self.width {
                 match self.elements.get((x+y*self.width) as usize) {
@@ -35,7 +35,7 @@ impl Board {
             println!()
         }
     }
-    fn place_piece(&self, piece: &Piece, x: i32, y: i32) -> Option<Board> {
+    pub fn place_piece(&self, piece: &Piece, x: i32, y: i32) -> Option<Board> {
         if self.validate_place_piece(piece, x, y) {
             let mut mut_elements: Vec<BoardElement> = self.elements.clone();
             for (xo,yo) in &piece.coords {
