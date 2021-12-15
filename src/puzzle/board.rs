@@ -85,7 +85,7 @@ pub fn test_board() {
     ()
 }
 
-fn board4() -> Board {
+pub fn board4() -> Board {
     return Board {
         width: 4,
         height: 4,

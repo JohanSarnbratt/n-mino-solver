@@ -27,15 +27,16 @@ impl Piece {
             name: self.name
         }
     }
-    pub fn all_perms(&self) -> Vec<Piece> { //todo check for duplicates
+    pub fn all_perms(&self) -> [Piece; 8] { //todo check for duplicates
         let p1 = self.turn();
         let p2 = p1.turn();
         let p3 = p2.turn();
+        let p0 = p3.turn();
         let p4 = self.mirror();
         let p5 = p4.turn();
         let p6 = p5.turn();
         let p7 = p6.turn();
-        vec![self, p1, p2, p3, p4, p5, p6, p7];
+        return [p0, p1, p2, p3, p4, p5, p6, p7];
     }
 }
 

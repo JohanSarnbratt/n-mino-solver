@@ -9,18 +9,19 @@ pub fn solver(board: Board, pieces: &[Piece]) -> i32 {
             1
         }
         Some((piece, other_pieces)) => {
-            let all_perms = piece.all_perms();
+            let all_perms: [Piece; 8] = piece.all_perms();
             let mut solutions = 0;
-            (0..board.width).for_each (|x: i32| {
-                (0..board.height).for_each (|y: i32| {
-                    all_perms.for_each (|p: Piece| {
-                        let new_board = board.place_piece(&p,x,y);
-                        new_board.map(|b: Board| {
-                            solutions += solver(b, other_pieces)
-                        })
+            for x in 0..board.width {
+                for y in 0..board.height {
+                    all_perms.iter().for_each (|p: &Piece| {
+                        board.place_piece(p,x,y).map(|b: Board| {
+                                solutions += solver(b, other_pieces)
+                            });
+                        ()
                     });
-                });
-            });
+                    ()
+                }
+            }
             solutions
         }
     }
