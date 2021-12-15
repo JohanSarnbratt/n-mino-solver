@@ -18,6 +18,15 @@ impl Piece {
             name: self.name
         }
     }
+    pub fn mirror(&self) -> Piece {
+        let new_coords = self.coords.iter().map(|(x,y)| -> (i32,i32) { return (*x, self.max_y - *y); }).collect();
+        Piece {
+            coords: new_coords,
+            max_x: self.max_x,
+            max_y: self.max_y,
+            name: self.name
+        }
+    }
 }
 
 impl std::fmt::Display for Piece {
@@ -46,13 +55,15 @@ pub fn construct_piece(coords: Vec<(i32, i32)>, name: char) -> Piece {
 pub fn pieces() -> Vec<Piece> {
     let p1 = piece_t();
     let p2 = piece_z();
-    return vec![p1, p2]
+    let p3 = piece_v();
+    return vec![p1, p2, p3]
 }
 pub fn test_pieces() -> Vec<Piece> {
     let p1 = piece_t();
     let p2 = piece_z();
     std::println!("p1 is \n{}", p1);
     std::println!("p2 is \n{}", p2);
+    std::println!("p2 mirror is \n{}", p2.mirror());
     return vec![p1, p2]
 }
 
@@ -62,4 +73,8 @@ fn piece_t() -> Piece {
 
 fn piece_z() -> Piece {
     return construct_piece(vec![(0, 0), (0, 1), (1, 1), (1, 2)], 'Z');
+}
+
+fn piece_v() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0), (2, 0)], 'V');
 }
