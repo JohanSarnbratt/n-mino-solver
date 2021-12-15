@@ -13,13 +13,12 @@ pub fn solver(board: Board, pieces: &[Piece]) -> i32 {
             let mut solutions = 0;
             for x in 0..board.width {
                 for y in 0..board.height {
-                    all_perms.iter().for_each (|p: &Piece| {
+                    for p in &all_perms {
                         board.place_piece(p,x,y).map(|b: Board| {
                                 solutions += solver(b, other_pieces)
                             });
                         ()
-                    });
-                    ()
+                    }
                 }
             }
             solutions

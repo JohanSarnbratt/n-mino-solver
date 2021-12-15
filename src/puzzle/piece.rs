@@ -3,8 +3,8 @@ use std::fmt::Formatter;
 
 pub struct Piece {
     pub coords: Vec<(i32, i32)>,
-    max_x: i32,
-    max_y: i32,
+    pub max_x: i32,
+    pub max_y: i32,
     pub name: char
 }
 

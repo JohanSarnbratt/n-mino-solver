@@ -1,4 +1,3 @@
-use std::slice::IterMut;
 use crate::puzzle::piece::{Piece, pieces};
 
 #[derive(Clone, PartialEq)]
@@ -51,6 +50,9 @@ impl Board {
         None
     }
     fn validate_place_piece(&self, piece: &Piece, x: i32, y: i32) -> bool {
+        if piece.max_x + x >= self.width || piece.max_y + y >= self.height {
+            return false;
+        }
         for (xo,yo) in &piece.coords {
             if self.get_board_pos(x+xo, y+yo) != Some(&BoardElement::Empty) {
                 return false;
@@ -86,10 +88,13 @@ pub fn test_board() {
 }
 
 pub fn board4() -> Board {
+    let mut elements: Vec<BoardElement> = std::iter::repeat(BoardElement::Empty).take(16).collect();
+    elements[0] = BoardElement::Wall;
+    elements[1] = BoardElement::Wall;
     return Board {
         width: 4,
         height: 4,
-        elements: std::iter::repeat(BoardElement::Empty).take(16).collect(),
+        elements,
         name: "Four by four".parse().unwrap()
     };
 }
