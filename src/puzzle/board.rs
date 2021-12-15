@@ -23,8 +23,8 @@ impl Board {
         !self.elements.contains(&BoardElement::Empty)
     }
     fn print(&self) {
-        for x in 0..self.width {
-            for y in 0..self.height {
+        for y in 0..self.height {
+            for x in 0..self.width {
                 match self.elements.get((x+y*self.width) as usize) {
                     Some(BoardElement::Wall) => print!("#"),
                     Some(BoardElement::Empty) => print!("`"),
@@ -72,7 +72,7 @@ pub fn test_board() {
     println!("is b1 full: {}", b1.full());
     b1.print();
     let pieces = pieces();
-    let b_placed = b1.place_piece(&pieces[0],0,0);
+    let b_placed = b1.place_piece(&pieces[0],1,0);
     println!("Placed a piece: ");
     for b in b_placed {
         b.print()
