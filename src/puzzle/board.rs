@@ -77,6 +77,11 @@ pub fn test_board() {
     for b in b_placed {
         b.print()
     }
+    let b_place_turned = b1.place_piece(&pieces[0].turn(),0,1);
+    println!("Placed a turned piece: ");
+    for b in b_place_turned {
+        b.print()
+    }
     ()
 }
 

@@ -9,7 +9,7 @@ pub struct Piece {
 }
 
 impl Piece {
-    fn turn(&self) -> Piece {
+    pub fn turn(&self) -> Piece {
         let new_coords = self.coords.iter().map(|(x,y)| -> (i32,i32) { return (self.max_y - *y, *x); }).collect();
         Piece {
             coords: new_coords,
