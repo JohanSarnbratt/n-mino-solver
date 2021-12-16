@@ -1,4 +1,4 @@
-use crate::puzzle::piece::{Piece, pieces};
+use crate::puzzle::piece::{Piece, pieces_board_4};
 
 #[derive(Clone, PartialEq)]
 enum BoardElement {
@@ -73,7 +73,7 @@ pub fn test_board() {
     println!("is b1 valid: {}", b1.valid());
     println!("is b1 full: {}", b1.full());
     b1.print();
-    let pieces = pieces();
+    let pieces = pieces_board_4();
     let b_placed = b1.place_piece(&pieces[0],1,0);
     println!("Placed a piece: ");
     for b in b_placed {

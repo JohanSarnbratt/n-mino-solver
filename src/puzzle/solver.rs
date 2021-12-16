@@ -1,11 +1,13 @@
 use crate::puzzle::piece::{Piece};
 use crate::puzzle::board::{Board};
 
-pub fn solver(board: Board, pieces: &[Piece]) -> i32 {
+pub fn solver(board: Board, pieces: &[Piece], print: bool) -> i32 {
     match pieces.split_first() {
         None => {
-            println!("Placed all pieces");
-            board.print();
+            if print {
+                println!("Placed all pieces");
+                board.print();
+            }
             1
         }
         Some((piece, other_pieces)) => {
@@ -15,7 +17,7 @@ pub fn solver(board: Board, pieces: &[Piece]) -> i32 {
                 for y in 0..board.height {
                     for p in &all_perms {
                         board.place_piece(p,x,y).map(|b: Board| {
-                                solutions += solver(b, other_pieces)
+                                solutions += solver(b, other_pieces, print)
                             });
                         ()
                     }

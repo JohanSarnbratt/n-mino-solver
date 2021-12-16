@@ -71,14 +71,14 @@ pub fn construct_piece(coords: Vec<(i32, i32)>, name: char) -> Piece {
     return Piece { coords, name, max_x: maxs.0, max_y: maxs.1};
 }
 
-pub fn pieces() -> Vec<Piece> {
+pub fn pieces_board_4() -> Vec<Piece> {
     let p1 = piece_t();
     let p2 = piece_z();
     let p3 = piece_v();
     return vec![p1, p2, p3]
 }
 pub fn test_pieces() {
-    let pieces = pieces();
+    let pieces = pieces_board_4();
     std::println!("p1 is \n{}", pieces[0]);
     std::println!("p2 is \n{}", pieces[1]);
     std::println!("p2 mirror is \n{}", pieces[1].mirror());
@@ -95,10 +95,51 @@ fn piece_t() -> Piece {
     return construct_piece(vec![(0, 0), (1, 0), (2, 0), (1, 1), (1, 2)],  'T');
 }
 
+fn piece_l() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0)], 'L');
+}
 fn piece_z() -> Piece {
-    return construct_piece(vec![(0, 0), (0, 1), (1, 1), (1, 2)], 'Z');
+    return construct_piece(vec![(0, 0), (0, 1), (1, 1), (1, 2)], 'z');
+}
+fn piece_big_z() -> Piece {
+    return construct_piece(vec![(0, 0), (1, 0), (2, 0), (2, 1), (2, 2), (3, 2), (4, 2)], 'Z');
 }
 
 fn piece_v() -> Piece {
-    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0), (2, 0)], 'V');
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0), (2, 0)], 'v');
+}
+fn piece_long_v() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0), (2, 0), (3, 0)], 'V');
+}
+fn piece_long_p() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 3), (1, 4)], 'P');
+}
+fn piece_short_p() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3), (1, 2), (1, 3)], 'p');
+}
+fn piece_mini_p() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 1), (1, 2)], 'q');
+}
+fn piece_fat_d() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 2), (2, 3)], 'd');
+}
+fn piece_q() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1)], 'Q');
+}
+fn piece_box() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2), (1, 3)], 'B');
+}
+
+fn pieces_for_original() -> Vec<Piece> {
+    return vec![
+        piece_long_p(),
+        piece_short_p(),
+        piece_mini_p(),
+        piece_fat_d(),
+        piece_v(),
+        piece_big_z(),
+        piece_l(),
+        piece_q(),
+        piece_box()
+    ];
 }
