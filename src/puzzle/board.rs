@@ -77,10 +77,10 @@ fn find_available_space(elems: &Vec<BoardElement>, min_size: usize, width: &usiz
     for i in 0..size {
         if elems[i] == BoardElement::Empty && !vec_vec_contains(&spaces, &i) {
             let new_space = get_space(&elems,i,&width);
-            spaces = spaces + new_space;
             if new_space.len() < min_size {
                 return false;
             }
+            spaces.push( new_space);
         }
     }
     //All spaces are at least min_size, so we can maybe put a piece in each
@@ -88,7 +88,7 @@ fn find_available_space(elems: &Vec<BoardElement>, min_size: usize, width: &usiz
 }
 
 fn vec_vec_contains(spaces: &Vec<Vec<usize>>, u: &usize) -> bool {
-    spaces.iter().any(|space: Vec<usize>| -> bool {
+    spaces.iter().any(|space: &Vec<usize>| -> bool {
         return space.contains(&u);
     })
 }
@@ -98,21 +98,21 @@ fn get_space(elems: &Vec<BoardElement>, start: usize, width: &usize) -> Vec<usiz
     let mut new_inds: Vec<usize> = vec![start];
     while !new_inds.is_empty() {
         let mut next_inds: Vec<usize> = vec![];
-        for ni in new_inds {
+        for ni in &new_inds {
             if ni%width != 0 && elems[ni-1] == BoardElement::Empty && !next_inds.contains(&(ni-1)) && !space.contains(&(ni-1)) {
                 next_inds.push(ni - 1);
             }
             if ni%width != width-1 && elems[ni+1] == BoardElement::Empty && !next_inds.contains(&(ni+1)) && !space.contains(&(ni+1)) {
                 next_inds.push(ni + 1);
             }
-            if ni-width > 0 && elems[ni-width] == BoardElement::Empty && !next_inds.contains(&(ni-width)) && !space.contains(&(ni-width)) {
+            if ni >= width && elems[ni-width] == BoardElement::Empty && !next_inds.contains(&(ni-width)) && !space.contains(&(ni-width)) {
                 next_inds.push(ni-width);
             }
-            if ni+width > 0 && elems[ni+width] == BoardElement::Empty && !next_inds.contains(&(ni+width)) && !space.contains(&(ni+width)) {
+            if ni+width < elems.len() && elems[ni+width] == BoardElement::Empty && !next_inds.contains(&(ni+width)) && !space.contains(&(ni+width)) {
                 next_inds.push(ni+width);
             }
         }
-        space = space + new_inds;
+        space.append(&mut new_inds);
         new_inds = next_inds;
     }
     space
