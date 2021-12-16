@@ -98,11 +98,17 @@ fn piece_t() -> Piece {
 fn piece_l() -> Piece {
     return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0)], 'L');
 }
+fn piece_long_l() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3), (1, 0)], 'K');
+}
 fn piece_z() -> Piece {
     return construct_piece(vec![(0, 0), (0, 1), (1, 1), (1, 2)], 'z');
 }
 fn piece_big_z() -> Piece {
     return construct_piece(vec![(0, 0), (1, 0), (2, 0), (2, 1), (2, 2), (3, 2), (4, 2)], 'Z');
+}
+fn piece_medium_z() -> Piece {
+    return construct_piece(vec![(0, 0), (1, 0), (1, 1), (1, 2), (2, 2)], 'Z');
 }
 
 fn piece_v() -> Piece {
@@ -129,6 +135,15 @@ fn piece_q() -> Piece {
 fn piece_box() -> Piece {
     return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2), (1, 3)], 'B');
 }
+fn piece_line() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3)], 'I');
+}
+fn piece_u() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 0), (1, 2)], 'U');
+}
+fn piece_r() -> Piece {
+    return construct_piece(vec![(0, 0), (0, 1), (0, 2), (1, 2), (1, 3)], 'R');
+}
 
 pub fn pieces_for_original() -> Vec<Piece> {
     return vec![
@@ -142,5 +157,19 @@ pub fn pieces_for_original() -> Vec<Piece> {
         piece_l(),
         piece_q(),
         piece_box()
+    ];
+}
+pub fn pieces_for_date() -> Vec<Piece> {
+    return vec![
+        piece_v(),
+        piece_mini_p(),
+        piece_long_l(),
+        piece_l(),
+        piece_z(),
+        piece_line(),
+        piece_medium_z(),
+        piece_t(),
+        piece_u(),
+        piece_r(),
     ];
 }
