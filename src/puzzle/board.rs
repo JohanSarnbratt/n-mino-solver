@@ -98,3 +98,12 @@ pub fn board4() -> Board {
         name: "Four by four".parse().unwrap()
     };
 }
+pub fn board8() -> Board {
+    let mut elements: Vec<BoardElement> = std::iter::repeat(BoardElement::Empty).take(64).collect();
+    return Board {
+        width: 8,
+        height: 8,
+        elements,
+        name: "Original".parse().unwrap()
+    };
+}

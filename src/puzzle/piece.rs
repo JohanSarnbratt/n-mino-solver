@@ -130,13 +130,14 @@ fn piece_box() -> Piece {
     return construct_piece(vec![(0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2), (1, 3)], 'B');
 }
 
-fn pieces_for_original() -> Vec<Piece> {
+pub fn pieces_for_original() -> Vec<Piece> {
     return vec![
         piece_long_p(),
         piece_short_p(),
         piece_mini_p(),
         piece_fat_d(),
         piece_v(),
+        piece_long_v(),
         piece_big_z(),
         piece_l(),
         piece_q(),
