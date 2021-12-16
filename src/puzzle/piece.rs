@@ -27,7 +27,7 @@ impl Piece {
             name: self.name
         }
     }
-    pub fn all_perms(&self) -> [Piece; 8] { //todo check for duplicates
+    pub fn all_perms(&self) -> Vec<Piece> { //todo check for duplicates
         let p1 = self.turn();
         let p2 = p1.turn();
         let p3 = p2.turn();
@@ -36,7 +36,15 @@ impl Piece {
         let p5 = p4.turn();
         let p6 = p5.turn();
         let p7 = p6.turn();
-        return [p0, p1, p2, p3, p4, p5, p6, p7];
+        let mut perms: Vec<Piece> = vec![p0, p1, p2, p3, p4, p5, p6, p7];
+        perms.iter_mut().for_each(| p| {
+            p.coords.sort();
+        });
+        perms.sort_by(|pa: &Piece, pb: &Piece| { pa.coords.cmp(&pb.coords) });
+        perms.dedup_by(|pa, pb| {
+            return pa.coords == pb.coords;
+        });
+        return perms;
     }
 }
 
@@ -69,13 +77,18 @@ pub fn pieces() -> Vec<Piece> {
     let p3 = piece_v();
     return vec![p1, p2, p3]
 }
-pub fn test_pieces() -> Vec<Piece> {
-    let p1 = piece_t();
-    let p2 = piece_z();
-    std::println!("p1 is \n{}", p1);
-    std::println!("p2 is \n{}", p2);
-    std::println!("p2 mirror is \n{}", p2.mirror());
-    return vec![p1, p2]
+pub fn test_pieces() {
+    let pieces = pieces();
+    std::println!("p1 is \n{}", pieces[0]);
+    std::println!("p2 is \n{}", pieces[1]);
+    std::println!("p2 mirror is \n{}", pieces[1].mirror());
+    for piece in pieces {
+        let perms = piece.all_perms();
+        println!("All {} perms:", perms.len());
+        for p in perms {
+            println!("{}", p);
+        }
+    }
 }
 
 fn piece_t() -> Piece {

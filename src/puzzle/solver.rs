@@ -9,7 +9,7 @@ pub fn solver(board: Board, pieces: &[Piece]) -> i32 {
             1
         }
         Some((piece, other_pieces)) => {
-            let all_perms: [Piece; 8] = piece.all_perms();
+            let all_perms: Vec<Piece> = piece.all_perms();
             let mut solutions = 0;
             for x in 0..board.width {
                 for y in 0..board.height {
