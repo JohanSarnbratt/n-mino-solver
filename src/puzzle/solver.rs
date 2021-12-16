@@ -11,6 +11,9 @@ pub fn solver(board: Board, pieces: &[Piece], print: bool) -> i32 {
             1
         }
         Some((piece, other_pieces)) => {
+            if !board.find_available_space() {
+                return 0;
+            }
             let all_perms: Vec<Piece> = piece.all_perms();
             let mut solutions = 0;
             for x in 0..board.width {
