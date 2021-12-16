@@ -107,3 +107,23 @@ pub fn board8() -> Board {
         name: "Original".parse().unwrap()
     };
 }
+pub fn date_board() -> Board {
+    let mut elements: Vec<BoardElement> = std::iter::repeat(BoardElement::Empty).take(56).collect();
+    elements[6] = BoardElement::Wall;
+    elements[13] = BoardElement::Wall;
+    elements[49] = BoardElement::Wall;
+    elements[50] = BoardElement::Wall;
+    elements[51] = BoardElement::Wall;
+    elements[52] = BoardElement::Wall;
+    //TODO base variable walls on actual date
+    elements[12] = BoardElement::Wall; //December
+    elements[29] = BoardElement::Wall; //16th
+    elements[53] = BoardElement::Wall; //Thursday
+
+    return Board {
+        width: 7,
+        height: 8,
+        elements,
+        name: "Original".parse().unwrap()
+    };
+}

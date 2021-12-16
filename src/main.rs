@@ -14,3 +14,12 @@ fn main() {
     let solutions = puzzle::solver::solver(board, puzzle_pieces, true);
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
 }
+
+fn original_puzzle() {
+    let vec_pieces = puzzle::piece::pieces_for_original();
+    let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
+    let board = puzzle::board::board8();
+    let t1 = Instant::now();
+    let solutions = puzzle::solver::solver(board, puzzle_pieces, true);
+    println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
+}
