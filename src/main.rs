@@ -27,7 +27,7 @@ fn _small_puzzle(opt: bool) {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board6();
     let t1 = Instant::now();
-    let solutions = puzzle::solver::solver(board, puzzle_pieces, false, true);
+    let solutions = puzzle::solver::solver(board, puzzle_pieces, false, opt);
     println!("Found {} solutions in {}ms. optimised: {}", solutions, t1.elapsed().as_millis(), opt)
 }
 fn _date_puzzle() {

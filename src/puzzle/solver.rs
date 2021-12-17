@@ -11,7 +11,7 @@ pub fn solver(board: Board, pieces: &[Piece], print: bool, opt: bool) -> i32 {
             1
         }
         Some((piece, other_pieces)) => {
-            if opt && !board.find_available_space() {
+            if opt && !board.find_available_space(&pieces) {
                 return 0;
             }
             let all_perms: Vec<Piece> = piece.all_perms();

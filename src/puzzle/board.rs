@@ -66,25 +66,50 @@ impl Board {
     fn get_board_index(&self, x: i32, y: i32 ) -> usize {
         (x+y*self.width) as usize
     }
-    pub fn find_available_space(&self) -> bool {
-        find_available_space(&self.elements, 4, &(self.width as usize))
+    pub fn find_available_space(&self, remaining_pieces: &[Piece]) -> bool {
+        let mut sizes: Vec<usize> = remaining_pieces.iter().map(|p: &Piece| -> usize {p.coords.len()}).collect();
+        sizes.sort();
+        find_available_space(&self.elements, &sizes, &(self.width as usize))
     }
 }
 
-fn find_available_space(elems: &Vec<BoardElement>, min_size: usize, width: &usize) -> bool {
+fn find_available_space(elems: &Vec<BoardElement>, sizes: &Vec<usize>, width: &usize) -> bool {
     let size = elems.len();
     let mut spaces: Vec<Vec<usize>> = vec![];
     for i in 0..size {
         if elems[i] == BoardElement::Empty && !vec_vec_contains(&spaces, &i) {
             let new_space = get_space(&elems,i,&width);
-            if new_space.len() < min_size {
+            if !can_be_built(new_space.len(), sizes) {
                 return false;
             }
             spaces.push( new_space);
         }
     }
-    //All spaces are at least min_size, so we can maybe put a piece in each
+    //All spaces have a buildable size, so we can maybe put a piece in each
     true
+}
+
+fn can_be_built(space: usize, sizes: &Vec<usize>) -> bool {
+    //println!("{} {:?} ", space, sizes);
+    let size_len = sizes.len();
+    let ret: bool;
+    if size_len == 0 {
+         ret = false;
+    } else if sizes[0] == space {
+        ret = true;
+    } else if sizes[0] > space {
+        ret = false
+    } else if size_len == 1 {
+        ret = false;
+    } else if can_be_built(space-sizes[0], & sizes.clone().split_off(1)) {
+        ret = true
+    } else if can_be_built(space, & sizes.clone().split_off(1)) {
+        ret = true
+    } else {
+        ret = false
+    };
+    //println!("{}",ret);
+    return ret;
 }
 
 fn vec_vec_contains(spaces: &Vec<Vec<usize>>, u: &usize) -> bool {
