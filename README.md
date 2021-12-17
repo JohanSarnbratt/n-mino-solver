@@ -1,0 +1,2 @@
+This will be a solver for nmino (Polyomino) type puzzles. 
+One of the goals is to figure out which days of the [date puzzle](https://www.fruugo.se/daily-calendar-puzzle-wooden-calendar-play-a-different-puzzle-to-display-the-date-difficult-jigsaw/p-65750901-132402079) is hardest/easiest.
