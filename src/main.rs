@@ -8,10 +8,8 @@ fn main() {
     //puzzle::piece::test_pieces();
     //puzzle::board::test_board();
     //TODO benchmark available_space
-    _small_puzzle(false);
-    _small_puzzle(true);
-    _small_puzzle(false);
-    _small_puzzle(true);
+    //_small_puzzle(true);
+    _original_puzzle();
 }
 
 fn _original_puzzle() {
@@ -19,7 +17,7 @@ fn _original_puzzle() {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board8();
     let t1 = Instant::now();
-    let solutions = puzzle::solver::solver(board, puzzle_pieces, true, false);
+    let solutions = puzzle::solver::solver(board, puzzle_pieces, true, true);
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
 }
 fn _small_puzzle(opt: bool) {

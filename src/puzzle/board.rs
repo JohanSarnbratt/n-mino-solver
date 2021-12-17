@@ -89,6 +89,7 @@ fn find_available_space(elems: &Vec<BoardElement>, sizes: &Vec<usize>, width: &u
     true
 }
 
+// Answers the question: Can a subset of numbers in `sizes` sum to `space`
 fn can_be_built(space: usize, sizes: &Vec<usize>) -> bool {
     //println!("{} {:?} ", space, sizes);
     let size_len = sizes.len();
@@ -210,4 +211,22 @@ pub fn date_board() -> Board {
         elements,
         name: "Original".parse().unwrap()
     };
+}
+
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn test_can_be_built() {
+        let should_be_false = can_be_built(14, &vec![4,5,6,7]);
+        assert_eq!(should_be_false, false);
+    }
+    #[test]
+    fn test_can_be_built2() {
+        let should_be_true = can_be_built(12, &vec![4,5,6,7]);
+        assert_eq!(should_be_true, true);
+    }
 }

@@ -183,3 +183,20 @@ pub fn pieces_for_date() -> Vec<Piece> {
         piece_r(),
     ];
 }
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn perms_of_pieces_consider_symetry() {
+        let piece = construct_piece(vec![(0,0), (1,0), (0,1), (1,1)], '#');
+        assert_eq!(piece.all_perms().len(), 1);
+    }
+    #[test]
+    fn perms_of_pieces_consider_symetry2() {
+        let piece = construct_piece(vec![(0,0), (1,0), (0,1), (2,0)], 'L');
+        assert_eq!(piece.all_perms().len(), 8);
+    }
+}
