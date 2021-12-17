@@ -159,6 +159,16 @@ pub fn pieces_for_original() -> Vec<Piece> {
         piece_box()
     ];
 }
+pub fn pieces_for_small() -> Vec<Piece> {
+    return vec![
+        piece_long_p(), //7
+        piece_short_p(), //6
+        piece_mini_p(), // 5
+        piece_fat_d(), //8
+        piece_v(), //5
+        piece_long_l(), //5
+    ];
+}
 pub fn pieces_for_date() -> Vec<Piece> {
     return vec![
         piece_v(),

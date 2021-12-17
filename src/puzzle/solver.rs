@@ -1,7 +1,7 @@
 use crate::puzzle::piece::{Piece};
 use crate::puzzle::board::{Board};
 
-pub fn solver(board: Board, pieces: &[Piece], print: bool) -> i32 {
+pub fn solver(board: Board, pieces: &[Piece], print: bool, opt: bool) -> i32 {
     match pieces.split_first() {
         None => {
             if print {
@@ -11,7 +11,7 @@ pub fn solver(board: Board, pieces: &[Piece], print: bool) -> i32 {
             1
         }
         Some((piece, other_pieces)) => {
-            if !board.find_available_space() {
+            if opt && !board.find_available_space() {
                 return 0;
             }
             let all_perms: Vec<Piece> = piece.all_perms();
@@ -20,7 +20,7 @@ pub fn solver(board: Board, pieces: &[Piece], print: bool) -> i32 {
                 for y in 0..board.height {
                     for p in &all_perms {
                         board.place_piece(p,x,y).map(|b: Board| {
-                                solutions += solver(b, other_pieces, print)
+                                solutions += solver(b, other_pieces, print, opt)
                             });
                         ()
                     }

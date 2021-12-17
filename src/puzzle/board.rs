@@ -157,6 +157,15 @@ pub fn board8() -> Board {
         name: "Original".parse().unwrap()
     };
 }
+pub fn board6() -> Board {
+    let elements: Vec<BoardElement> = std::iter::repeat(BoardElement::Empty).take(36).collect();
+    return Board {
+        width: 6,
+        height: 6,
+        elements,
+        name: "Original".parse().unwrap()
+    };
+}
 pub fn date_board() -> Board {
     let mut elements: Vec<BoardElement> = std::iter::repeat(BoardElement::Empty).take(56).collect();
     elements[6] = BoardElement::Wall;
