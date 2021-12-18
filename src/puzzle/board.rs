@@ -8,8 +8,8 @@ enum BoardElement {
 }
 
 pub struct Board {
-    pub width: i32,
-    pub height: i32,
+    pub width: usize,
+    pub height: usize,
     elements: Vec<BoardElement>,
     pub name: String
 }
@@ -34,7 +34,7 @@ impl Board {
             println!()
         }
     }
-    pub fn place_piece(&self, piece: &Piece, x: i32, y: i32) -> Option<Board> {
+    pub fn place_piece(&self, piece: &Piece, x: usize, y: usize) -> Option<Board> {
         if self.validate_place_piece(piece, x, y) {
             let mut mut_elements: Vec<BoardElement> = self.elements.clone();
             for (xo,yo) in &piece.coords {
@@ -49,7 +49,7 @@ impl Board {
         }
         None
     }
-    fn validate_place_piece(&self, piece: &Piece, x: i32, y: i32) -> bool {
+    fn validate_place_piece(&self, piece: &Piece, x: usize, y: usize) -> bool {
         if piece.max_x + x >= self.width || piece.max_y + y >= self.height {
             return false;
         }
@@ -60,11 +60,11 @@ impl Board {
         }
         true
     }
-    fn get_board_pos(&self, x: i32, y: i32 ) -> Option<&BoardElement> {
+    fn get_board_pos(&self, x: usize, y: usize ) -> Option<&BoardElement> {
         self.elements.get((x+y*self.width) as usize)
     }
-    fn get_board_index(&self, x: i32, y: i32 ) -> usize {
-        (x+y*self.width) as usize
+    fn get_board_index(&self, x: usize, y: usize ) -> usize {
+        x+y*self.width
     }
     pub fn find_available_space(&self, remaining_pieces: &[Piece]) -> bool {
         let mut sizes: Vec<usize> = remaining_pieces.iter().map(|p: &Piece| -> usize {p.coords.len()}).collect();

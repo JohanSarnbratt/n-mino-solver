@@ -2,16 +2,16 @@ use std;
 use std::fmt::Formatter;
 
 pub struct Piece {
-    pub coords: Vec<(i32, i32)>,
-    pub max_x: i32,
-    pub max_y: i32,
+    pub coords: Vec<(usize, usize)>,
+    pub max_x: usize,
+    pub max_y: usize,
     pub name: char,
     pub all_perms: Vec<Piece>
 }
 
 impl Piece {
     pub fn turn(&self) -> Piece {
-        let new_coords = self.coords.iter().map(|(x,y)| -> (i32,i32) { return (self.max_y - *y, *x); }).collect();
+        let new_coords = self.coords.iter().map(|(x,y)| -> (usize,usize) { return (self.max_y - *y, *x); }).collect();
         Piece {
             coords: new_coords,
             max_x: self.max_y,
@@ -21,7 +21,7 @@ impl Piece {
         }
     }
     pub fn mirror(&self) -> Piece {
-        let new_coords = self.coords.iter().map(|(x,y)| -> (i32,i32) { return (*x, self.max_y - *y); }).collect();
+        let new_coords = self.coords.iter().map(|(x,y)| -> (usize,usize) { return (*x, self.max_y - *y); }).collect();
         Piece {
             coords: new_coords,
             max_x: self.max_x,
@@ -54,7 +54,7 @@ fn generate_all_perms(piece: &Piece) -> Vec<Piece> {
 impl std::fmt::Display for Piece {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         use std::cmp::max;
-        let maxs = self.coords.iter().fold((0i32,0i32), |m: (i32, i32), p: &(i32, i32)| { (max(m.0, p.0), max(m.1, p.1)) });
+        let maxs = self.coords.iter().fold((0,0), |m: (usize, usize), p: &(usize, usize)| { (max(m.0, p.0), max(m.1, p.1)) });
         let str: String = (0..((maxs.0+1) * (maxs.1+1))).map(|ind| {
             let x = ind%(maxs.0+1);
             let y = ind/(maxs.0+1);
@@ -68,9 +68,9 @@ impl std::fmt::Display for Piece {
     }
 }
 
-pub fn construct_piece(coords: Vec<(i32, i32)>, name: char) -> Piece {
+pub fn construct_piece(coords: Vec<(usize, usize)>, name: char) -> Piece {
     use std::cmp::max;
-    let maxs = coords.iter().fold((0i32,0i32), |m: (i32, i32), p: &(i32, i32)| { (max(m.0, p.0), max(m.1, p.1)) });
+    let maxs = coords.iter().fold((0usize,0usize), |m: (usize, usize), p: &(usize, usize)| { (max(m.0, p.0), max(m.1, p.1)) });
     let piece_without_perms = Piece { coords: coords.clone(), name, max_x: maxs.0, max_y: maxs.1, all_perms: vec![]};
     let perms = generate_all_perms(&piece_without_perms);
     return Piece { coords, name, max_x: maxs.0, max_y: maxs.1, all_perms: perms};

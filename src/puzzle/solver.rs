@@ -1,7 +1,7 @@
 use crate::puzzle::piece::{Piece};
 use crate::puzzle::board::{Board};
 
-pub fn solver(board: Board, pieces: &[Piece], print: bool, opt: bool) -> i32 {
+pub fn solver(board: Board, pieces: &[Piece], print: bool, opt: bool) -> usize {
     match pieces.split_first() {
         None => {
             if print {
