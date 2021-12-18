@@ -9,9 +9,9 @@ fn main() {
     //puzzle::board::test_board();
     //TODO benchmark available_space
     //_small_puzzle();
-    _small_puzzle2();
+    //_small_puzzle2();
     //_tiny_puzzle2();
-    _original_puzzle2();
+    _date_puzzle();
 }
 
 fn _original_puzzle() {
@@ -23,11 +23,12 @@ fn _original_puzzle() {
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
 }
 fn _original_puzzle2() {
+    //Found 12724 solutions in 354 260 ms
     let vec_pieces = puzzle::piece::pieces_for_original();
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board8();
     let t1 = Instant::now();
-    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false);
+    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false, true);
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
 }
 fn _small_puzzle() {
@@ -45,7 +46,7 @@ fn _small_puzzle2() {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board6();
     let t1 = Instant::now();
-    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false);
+    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false, true);
     println!("Found {} solutions in {}ms.", solutions, t1.elapsed().as_millis())
 }
 fn _tiny_puzzle2() {
@@ -54,7 +55,7 @@ fn _tiny_puzzle2() {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board4();
     let t1 = Instant::now();
-    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, true);
+    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, true, true);
     println!("Found {} solutions in {}ms.", solutions, t1.elapsed().as_millis())
 }
 fn _date_puzzle() {
@@ -62,6 +63,6 @@ fn _date_puzzle() {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::date_board();
     let t1 = Instant::now();
-    let solutions = puzzle::solver::solver(board, puzzle_pieces, true);
+    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false, true);
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
 }

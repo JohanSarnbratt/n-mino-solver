@@ -168,8 +168,16 @@ fn piece_r() -> Piece {
 }
 
 pub fn pieces_for_original() -> Vec<Piece> {
+    let long_p = piece_long_p();
+    let fix_symmetry = Piece {
+        coords: long_p.coords,
+        max_x: long_p.max_x,
+        max_y: long_p.max_y,
+        name: long_p.name,
+        all_perms: vec![long_p.all_perms[0].clone()]
+    };
     return vec![
-        piece_long_p(),
+        fix_symmetry,
         piece_short_p(),
         piece_mini_p(),
         piece_fat_d(),

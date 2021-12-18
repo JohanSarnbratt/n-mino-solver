@@ -1,7 +1,7 @@
 use crate::puzzle::piece::{Piece};
 use crate::puzzle::board::{Board};
 
-pub fn solver2(board: Board, pieces: &[Piece], print: bool) -> usize {
+pub fn solver2(board: Board, pieces: &[Piece], print: bool, first_layer: bool) -> usize {
     match pieces.len() {
         0 => {
             if print {
@@ -20,7 +20,10 @@ pub fn solver2(board: Board, pieces: &[Piece], print: bool) -> usize {
                                 if x >= offset {
                                     board.place_piece(&perm, x - offset, y).map(|b: Board| {
                                         let other_pieces = [&pieces[..p_ind], &pieces[p_ind + 1..]].concat();
-                                        solutions += solver2(b, &other_pieces[..], print)
+                                        solutions += solver2(b, &other_pieces[..], print, false);
+                                        if first_layer {
+                                            println!("Solutions so far: {}", solutions);
+                                        }
                                     });
                                 }
                             }
