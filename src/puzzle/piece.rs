@@ -1,6 +1,7 @@
 use std;
 use std::fmt::Formatter;
 
+#[derive(Clone)]
 pub struct Piece {
     pub coords: Vec<(usize, usize)>,
     pub max_x: usize,
@@ -8,6 +9,14 @@ pub struct Piece {
     pub name: char,
     pub all_perms: Vec<Piece>
 }
+/*
+impl Clone for Piece {
+    fn clone(&self) -> Self {
+        Piece {
+            coords: self.coords.clone()
+        }
+    }
+}*/
 
 impl Piece {
     pub fn turn(&self) -> Piece {

@@ -1,7 +1,7 @@
 use crate::puzzle::piece::{Piece};
 use crate::puzzle::board::{Board};
 
-pub fn solver(board: Board, pieces: &[Piece], print: bool, opt: bool) -> usize {
+pub fn solver(board: Board, pieces: &[Piece], print: bool) -> usize {
     match pieces.split_first() {
         None => {
             if print {
@@ -20,7 +20,7 @@ pub fn solver(board: Board, pieces: &[Piece], print: bool, opt: bool) -> usize {
                 for y in 0..board.height {
                     for p in all_perms {
                         board.place_piece(p,x,y).map(|b: Board| {
-                                solutions += solver(b, other_pieces, print, opt)
+                                solutions += solver(b, other_pieces, print)
                             });
                         ()
                     }

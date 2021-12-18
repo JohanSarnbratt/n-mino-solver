@@ -1,6 +1,6 @@
 use crate::puzzle::piece::{Piece, pieces_board_4};
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 enum BoardElement {
     Wall,
     Empty,
@@ -70,6 +70,17 @@ impl Board {
         let mut sizes: Vec<usize> = remaining_pieces.iter().map(|p: &Piece| -> usize {p.coords.len()}).collect();
         sizes.sort();
         find_available_space(&self.elements, &sizes, &(self.width as usize))
+    }
+    pub fn first_empty_space(&self) -> Option<(usize, usize)> {
+        self.elements
+            .iter()
+            .enumerate()
+            .find_map(|(ind, &element)| -> Option<(usize, usize)> {
+                match element {
+                    BoardElement::Empty => Some((ind%self.width,ind/self.width)),
+                    _ => None
+                }
+            })
     }
 }
 
