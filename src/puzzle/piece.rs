@@ -30,6 +30,14 @@ impl Piece {
             all_perms: vec![]
         }
     }
+    pub fn offset(&self) -> Option<usize> { //todo cache this
+        self.coords.iter().filter_map(|&(x,y)| -> Option<usize> {
+            if y == 0 {
+                return Some(x);
+            }
+            return None
+        }).min()
+    }
 }
 fn generate_all_perms(piece: &Piece) -> Vec<Piece> {
     let p1 = piece.turn();
