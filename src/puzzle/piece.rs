@@ -5,7 +5,8 @@ pub struct Piece {
     pub coords: Vec<(i32, i32)>,
     pub max_x: i32,
     pub max_y: i32,
-    pub name: char
+    pub name: char,
+    pub all_perms: Vec<Piece>
 }
 
 impl Piece {
@@ -15,7 +16,8 @@ impl Piece {
             coords: new_coords,
             max_x: self.max_y,
             max_y: self.max_x,
-            name: self.name
+            name: self.name,
+            all_perms: vec![]
         }
     }
     pub fn mirror(&self) -> Piece {
@@ -24,28 +26,29 @@ impl Piece {
             coords: new_coords,
             max_x: self.max_x,
             max_y: self.max_y,
-            name: self.name
+            name: self.name,
+            all_perms: vec![]
         }
     }
-    pub fn all_perms(&self) -> Vec<Piece> { //todo check for duplicates
-        let p1 = self.turn();
-        let p2 = p1.turn();
-        let p3 = p2.turn();
-        let p0 = p3.turn();
-        let p4 = self.mirror();
-        let p5 = p4.turn();
-        let p6 = p5.turn();
-        let p7 = p6.turn();
-        let mut perms: Vec<Piece> = vec![p0, p1, p2, p3, p4, p5, p6, p7];
-        perms.iter_mut().for_each(| p| {
-            p.coords.sort();
-        });
-        perms.sort_by(|pa: &Piece, pb: &Piece| { pa.coords.cmp(&pb.coords) });
-        perms.dedup_by(|pa, pb| {
-            return pa.coords == pb.coords;
-        });
-        return perms;
-    }
+}
+fn generate_all_perms(piece: &Piece) -> Vec<Piece> {
+    let p1 = piece.turn();
+    let p2 = p1.turn();
+    let p3 = p2.turn();
+    let p0 = p3.turn();
+    let p4 = piece.mirror();
+    let p5 = p4.turn();
+    let p6 = p5.turn();
+    let p7 = p6.turn();
+    let mut perms: Vec<Piece> = vec![p0, p1, p2, p3, p4, p5, p6, p7];
+    perms.iter_mut().for_each(| p| {
+        p.coords.sort();
+    });
+    perms.sort_by(|pa: &Piece, pb: &Piece| { pa.coords.cmp(&pb.coords) });
+    perms.dedup_by(|pa, pb| {
+        return pa.coords == pb.coords;
+    });
+    return perms;
 }
 
 impl std::fmt::Display for Piece {
@@ -68,7 +71,9 @@ impl std::fmt::Display for Piece {
 pub fn construct_piece(coords: Vec<(i32, i32)>, name: char) -> Piece {
     use std::cmp::max;
     let maxs = coords.iter().fold((0i32,0i32), |m: (i32, i32), p: &(i32, i32)| { (max(m.0, p.0), max(m.1, p.1)) });
-    return Piece { coords, name, max_x: maxs.0, max_y: maxs.1};
+    let piece_without_perms = Piece { coords: coords.clone(), name, max_x: maxs.0, max_y: maxs.1, all_perms: vec![]};
+    let perms = generate_all_perms(&piece_without_perms);
+    return Piece { coords, name, max_x: maxs.0, max_y: maxs.1, all_perms: perms};
 }
 
 pub fn pieces_board_4() -> Vec<Piece> {
@@ -83,7 +88,7 @@ pub fn test_pieces() {
     std::println!("p2 is \n{}", pieces[1]);
     std::println!("p2 mirror is \n{}", pieces[1].mirror());
     for piece in pieces {
-        let perms = piece.all_perms();
+        let perms = piece.all_perms;
         println!("All {} perms:", perms.len());
         for p in perms {
             println!("{}", p);

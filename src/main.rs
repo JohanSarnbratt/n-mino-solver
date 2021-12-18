@@ -8,8 +8,8 @@ fn main() {
     //puzzle::piece::test_pieces();
     //puzzle::board::test_board();
     //TODO benchmark available_space
-    //_small_puzzle(true);
-    _original_puzzle();
+    _small_puzzle(true);
+    //_original_puzzle();
 }
 
 fn _original_puzzle() {
@@ -21,6 +21,7 @@ fn _original_puzzle() {
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
 }
 fn _small_puzzle(opt: bool) {
+    //Found 344 solutions in 3472ms. optimised: true
     let vec_pieces = puzzle::piece::pieces_for_small();
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board6();
