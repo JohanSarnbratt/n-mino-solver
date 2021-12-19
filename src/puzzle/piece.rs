@@ -7,7 +7,8 @@ pub struct Piece {
     pub max_x: usize,
     pub max_y: usize,
     pub name: char,
-    pub all_perms: Vec<Piece>
+    pub all_perms: Vec<Piece>,
+    pub offset: usize
 }
 /*
 impl Clone for Piece {
@@ -21,32 +22,44 @@ impl Clone for Piece {
 impl Piece {
     pub fn turn(&self) -> Piece {
         let new_coords = self.coords.iter().map(|(x,y)| -> (usize,usize) { return (self.max_y - *y, *x); }).collect();
+        let mut optional_offset = offset_from_coords(&new_coords);
+        let new_offset = optional_offset.get_or_insert(1234);
+        if *new_offset == 1234 {
+            println!("Unexpected value for offset when turning piece {}", self.name)
+        }
         Piece {
             coords: new_coords,
             max_x: self.max_y,
             max_y: self.max_x,
             name: self.name,
-            all_perms: vec![]
+            all_perms: vec![],
+            offset: *new_offset
         }
     }
     pub fn mirror(&self) -> Piece {
         let new_coords = self.coords.iter().map(|(x,y)| -> (usize,usize) { return (*x, self.max_y - *y); }).collect();
+        let mut optional_offset = offset_from_coords(&new_coords);
+        let new_offset = optional_offset.get_or_insert(1234);
+        if *new_offset == 1234 {
+            println!("Unexpected value for offset when mirroring piece {}", self.name)
+        }
         Piece {
             coords: new_coords,
             max_x: self.max_x,
             max_y: self.max_y,
             name: self.name,
-            all_perms: vec![]
+            all_perms: vec![],
+            offset: *new_offset
         }
     }
-    pub fn offset(&self) -> Option<usize> { //todo cache this
-        self.coords.iter().filter_map(|&(x,y)| -> Option<usize> {
-            if y == 0 {
-                return Some(x);
-            }
-            return None
-        }).min()
-    }
+}
+pub fn offset_from_coords(coords: &Vec<(usize, usize)>) -> Option<usize> {
+    coords.iter().filter_map(|&(x,y)| -> Option<usize> {
+        if y == 0 {
+            return Some(x);
+        }
+        return None
+    }).min()
 }
 fn generate_all_perms(piece: &Piece) -> Vec<Piece> {
     let p1 = piece.turn();
@@ -87,10 +100,15 @@ impl std::fmt::Display for Piece {
 
 pub fn construct_piece(coords: Vec<(usize, usize)>, name: char) -> Piece {
     use std::cmp::max;
+    let mut optional_offset = offset_from_coords(&coords);
+    let offset = optional_offset.get_or_insert(1234);
+    if *offset == 1234 {
+        println!("Unexpected value -1 for offset when mirroring piece {}", name)
+    }
     let maxs = coords.iter().fold((0usize,0usize), |m: (usize, usize), p: &(usize, usize)| { (max(m.0, p.0), max(m.1, p.1)) });
-    let piece_without_perms = Piece { coords: coords.clone(), name, max_x: maxs.0, max_y: maxs.1, all_perms: vec![]};
+    let piece_without_perms = Piece { coords: coords.clone(), name, max_x: maxs.0, max_y: maxs.1, all_perms: vec![], offset: *offset};
     let perms = generate_all_perms(&piece_without_perms);
-    return Piece { coords, name, max_x: maxs.0, max_y: maxs.1, all_perms: perms};
+    return Piece { coords, name, max_x: maxs.0, max_y: maxs.1, all_perms: perms, offset: *offset};
 }
 
 pub fn pieces_board_4() -> Vec<Piece> {
@@ -174,7 +192,8 @@ pub fn pieces_for_original() -> Vec<Piece> {
         max_x: long_p.max_x,
         max_y: long_p.max_y,
         name: long_p.name,
-        all_perms: vec![long_p.all_perms[0].clone()]
+        all_perms: vec![long_p.all_perms[0].clone()],
+        offset: 0
     };
     return vec![
         fix_symmetry,

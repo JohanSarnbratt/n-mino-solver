@@ -16,16 +16,14 @@ pub fn solver2(board: Board, pieces: &[Piece], print: bool, first_layer: bool) -
                 Some((x,y)) => {
                     for (p_ind, p) in pieces.iter().enumerate() {
                         for perm in &p.all_perms {
-                            for offset in perm.offset() {
-                                if x >= offset {
-                                    board.place_piece(&perm, x - offset, y).map(|b: Board| {
-                                        let other_pieces = [&pieces[..p_ind], &pieces[p_ind + 1..]].concat();
-                                        solutions += solver2(b, &other_pieces[..], print, false);
-                                        if first_layer {
-                                            println!("Solutions so far: {}", solutions);
-                                        }
-                                    });
-                                }
+                            if x >= perm.offset {
+                                board.place_piece(&perm, x - perm.offset, y).map(|b: Board| {
+                                    let other_pieces = [&pieces[..p_ind], &pieces[p_ind + 1..]].concat();
+                                    solutions += solver2(b, &other_pieces[..], print, false);
+                                    if first_layer {
+                                        println!("Solutions so far: {}", solutions);
+                                    }
+                                });
                             }
                         }
                     }

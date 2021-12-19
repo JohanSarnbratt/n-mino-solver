@@ -1,0 +1,67 @@
+/Users/johansarnbratt/.cargo/bin/cargo run --color=always --bin rust2 --manifest-path /Users/johansarnbratt/personal/rust2/Cargo.toml
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `/Users/johansarnbratt/personal/rust2/target/debug/rust2`
+Creating board for 2021 12 1 Wed
+Found 1245 solutions in 24566ms
+Creating board for 2021 12 2 Thu
+Found 1917 solutions in 26252ms
+Creating board for 2021 12 3 Fri
+Found 1191 solutions in 28742ms
+Creating board for 2021 12 4 Sat
+Found 1732 solutions in 30488ms
+Creating board for 2021 12 5 Sun
+Found 278 solutions in 6939ms
+Creating board for 2021 12 6 Mon
+Found 876 solutions in 23893ms
+Creating board for 2021 12 7 Tue
+Found 4364 solutions in 50524ms
+Creating board for 2021 12 8 Wed
+Found 1319 solutions in 26588ms
+Creating board for 2021 12 9 Thu
+Found 1910 solutions in 29279ms
+Creating board for 2021 12 10 Fri
+Found 1030 solutions in 26423ms
+Creating board for 2021 12 11 Sat
+Found 1638 solutions in 24513ms
+Creating board for 2021 12 12 Sun
+Found 751 solutions in 20790ms
+Creating board for 2021 12 13 Mon
+Found 1274 solutions in 25890ms
+Creating board for 2021 12 14 Tue
+Found 2881 solutions in 24759ms
+Creating board for 2021 12 15 Wed
+Found 1415 solutions in 33194ms
+Creating board for 2021 12 16 Thu
+Found 2076 solutions in 29301ms
+Creating board for 2021 12 17 Fri
+Found 1100 solutions in 27399ms
+Creating board for 2021 12 18 Sat
+Found 1425 solutions in 28594ms
+Creating board for 2021 12 19 Sun
+Found 1221 solutions in 25530ms
+Creating board for 2021 12 20 Mon
+Found 741 solutions in 22159ms
+Creating board for 2021 12 21 Tue
+Found 3567 solutions in 25728ms
+Creating board for 2021 12 22 Wed
+Found 1555 solutions in 37794ms
+Creating board for 2021 12 23 Thu
+Found 3949 solutions in 37474ms
+Creating board for 2021 12 24 Fri
+Found 1241 solutions in 38277ms
+Creating board for 2021 12 25 Sat
+Found 2040 solutions in 41197ms
+Creating board for 2021 12 26 Sun
+Found 943 solutions in 33890ms
+Creating board for 2021 12 27 Mon
+Found 145 solutions in 36118ms
+Creating board for 2021 12 28 Tue
+Found 1471 solutions in 44612ms
+Creating board for 2021 12 29 Wed
+Found 2355 solutions in 55209ms
+Creating board for 2021 12 30 Thu
+Found 2324 solutions in 56624ms
+Creating board for 2021 12 31 Fri
+Found 687 solutions in 58946ms
+
+Process finished with exit code 0
