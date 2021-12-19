@@ -1,4 +1,5 @@
 use crate::puzzle::piece::{Piece, pieces_board_4};
+use chrono::{Datelike, NaiveDate, Weekday};
 
 #[derive(Clone, Copy, PartialEq)]
 enum BoardElement {
@@ -155,7 +156,7 @@ fn get_space(elems: &Vec<BoardElement>, start: usize, width: &usize) -> Vec<usiz
     space
 }
 
-pub fn test_board() {
+pub fn example_board() {
     let b1 = board4();
     println!("is b1 valid: {}", b1.valid());
     println!("is b1 full: {}", b1.full());
@@ -170,6 +171,19 @@ pub fn test_board() {
     println!("Placed a turned piece: ");
     for b in b_place_turned {
         b.print()
+    }
+    let date_board = date_board(NaiveDate::from_ymd(2021,12,16));
+    println!("Printing date board: ");
+    date_board.print();
+    ()
+}
+
+pub fn example_date_board() {
+    for day in 1..37
+    {
+        let date_board = date_board(NaiveDate::from_yo(2021, day*10));
+        println!("Printing date board: ");
+        date_board.print();
     }
     ()
 }
@@ -203,7 +217,7 @@ pub fn board6() -> Board {
         name: "Original".parse().unwrap()
     };
 }
-pub fn date_board() -> Board {
+pub fn date_board(date: NaiveDate) -> Board {
     let mut elements: Vec<BoardElement> = std::iter::repeat(BoardElement::Empty).take(56).collect();
     elements[6] = BoardElement::Wall;
     elements[13] = BoardElement::Wall;
@@ -212,9 +226,22 @@ pub fn date_board() -> Board {
     elements[51] = BoardElement::Wall;
     elements[52] = BoardElement::Wall;
     //TODO base variable walls on actual date
-    elements[12] = BoardElement::Wall; //December
-    elements[29] = BoardElement::Wall; //16th
-    elements[53] = BoardElement::Wall; //Thursday
+    println!("Creating board for {} {} {} {}", date.year(), date.month(), date.day(), date.weekday());
+    if date.month() <= 6 {
+        elements[(date.month()-1) as usize] = BoardElement::Wall;
+    } else {
+        elements[(date.month()) as usize] = BoardElement::Wall;
+    }
+    elements[(13+date.day()) as usize] = BoardElement::Wall;
+    match date.weekday() {
+        Weekday::Mon => elements[46] = BoardElement::Wall,
+        Weekday::Tue => elements[47] = BoardElement::Wall,
+        Weekday::Wed => elements[48] = BoardElement::Wall,
+        Weekday::Thu => elements[53] = BoardElement::Wall,
+        Weekday::Fri => elements[54] = BoardElement::Wall,
+        Weekday::Sat => elements[55] = BoardElement::Wall,
+        Weekday::Sun => elements[45] = BoardElement::Wall,
+    }
 
     return Board {
         width: 7,

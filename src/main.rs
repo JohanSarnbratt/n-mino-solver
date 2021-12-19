@@ -1,4 +1,5 @@
 use std::time::{Instant};
+use chrono::NaiveDate;
 
 use rust2::puzzle;
 use crate::puzzle::piece::{Piece};
@@ -6,12 +7,12 @@ use crate::puzzle::piece::{Piece};
 fn main() {
 
     //puzzle::piece::test_pieces();
-    //puzzle::board::test_board();
+    puzzle::board::example_date_board();
     //TODO benchmark available_space
     //_small_puzzle();
     //_small_puzzle2();
     //_tiny_puzzle2();
-    _date_puzzle();
+    //_date_puzzle();
 }
 
 fn _original_puzzle() {
@@ -61,7 +62,7 @@ fn _tiny_puzzle2() {
 fn _date_puzzle() {
     let vec_pieces = puzzle::piece::pieces_for_date();
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
-    let board = puzzle::board::date_board();
+    let board = puzzle::board::date_board(NaiveDate::from_yo(2021, 300));
     let t1 = Instant::now();
     let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false, true);
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
