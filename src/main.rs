@@ -29,7 +29,7 @@ fn _original_puzzle2() {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board8();
     let t1 = Instant::now();
-    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false, true);
+    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false);
     println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
 }
 fn _small_puzzle() {
@@ -47,7 +47,7 @@ fn _small_puzzle2() {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board6();
     let t1 = Instant::now();
-    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false, true);
+    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false);
     println!("Found {} solutions in {}ms.", solutions, t1.elapsed().as_millis())
 }
 fn _tiny_puzzle2() {
@@ -56,7 +56,7 @@ fn _tiny_puzzle2() {
     let puzzle_pieces: &[Piece] = vec_pieces.as_slice();
     let board = puzzle::board::board4();
     let t1 = Instant::now();
-    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, true, true);
+    let solutions = puzzle::solver2::solver2(board, puzzle_pieces, true);
     println!("Found {} solutions in {}ms.", solutions, t1.elapsed().as_millis())
 }
 fn _date_puzzle() {
@@ -65,7 +65,7 @@ fn _date_puzzle() {
     for day in 1..32 {
         let board = puzzle::board::date_board(NaiveDate::from_ymd(2021, 12, day));
         let t1 = Instant::now();
-        let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false, false);
+        let solutions = puzzle::solver2::solver2(board, puzzle_pieces, false);
         println!("Found {} solutions in {}ms", solutions, t1.elapsed().as_millis())
     }
 }

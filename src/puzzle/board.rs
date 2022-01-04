@@ -61,10 +61,10 @@ impl Board {
         }
         true
     }
-    fn get_board_pos(&self, x: usize, y: usize ) -> Option<&BoardElement> {
+    fn get_board_pos(&self, x: usize, y: usize) -> Option<&BoardElement> {
         self.elements.get((x+y*self.width) as usize)
     }
-    fn get_board_index(&self, x: usize, y: usize ) -> usize {
+    fn get_board_index(&self, x: usize, y: usize) -> usize {
         x+y*self.width
     }
     pub fn find_available_space(&self, remaining_pieces: &[Piece]) -> bool {
@@ -72,13 +72,14 @@ impl Board {
         sizes.sort();
         find_available_space(&self.elements, &sizes, &(self.width as usize))
     }
-    pub fn first_empty_space(&self) -> Option<(usize, usize)> {
+    pub fn first_empty_space(&self, offset: usize) -> Option<(usize, usize, usize)> {
         self.elements
             .iter()
             .enumerate()
-            .find_map(|(ind, &element)| -> Option<(usize, usize)> {
+            .skip(offset)
+            .find_map(|(ind, &element)| -> Option<(usize, usize, usize)> {
                 match element {
-                    BoardElement::Empty => Some((ind%self.width,ind/self.width)),
+                    BoardElement::Empty => Some((ind%self.width,ind/self.width, ind)),
                     _ => None
                 }
             })
